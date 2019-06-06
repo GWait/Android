@@ -7,6 +7,6 @@ public class SpaceGame extends Game {
 
 	@Override
 	public void create() {
-		setScreen(new MainScreen());
+		setScreen(new MainScreen(this));
 	}
 }

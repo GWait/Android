@@ -16,7 +16,7 @@ public abstract class BaseScreen implements Screen, InputProcessor {
     protected Vector2 selectedPos;
 
     private Rect screenBounds;
-    private Rect worldBounds;
+    protected Rect worldBounds;
     private Rect glBounds;
 
     private Matrix4 worldToGl;
