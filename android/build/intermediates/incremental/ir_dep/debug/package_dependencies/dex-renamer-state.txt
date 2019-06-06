@@ -1,0 +1,4 @@
+#Sun May 19 23:26:36 MSK 2019
+base.0=D\:\\PROJECTS\\Development\\LOCAL\\Android\\SpaceGame\\android\\build\\intermediates\\transforms\\dexMerger\\debug\\10
+path.0=classes.dex
+renamed.0=classes.dex
