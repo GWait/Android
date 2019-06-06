@@ -42,6 +42,7 @@ public class GameScreen extends BaseScreen {
     private Music music;
 
     private GameOver gameOver;
+    private NewGameButton newGameButton;
 
     private State state;
 
@@ -62,6 +63,7 @@ public class GameScreen extends BaseScreen {
         enemyPool = new EnemyPool(bulletPool, explosionPool, bulletSound, worldBounds, spaceShip);
         enemyGenerator = new EnemyGenerator(worldBounds, enemyPool, atlas);
         gameOver = new GameOver(atlas);
+        newGameButton = new NewGameButton(atlas, game);
         state = State.PLAY;
         initStars();
     }
@@ -148,6 +150,7 @@ public class GameScreen extends BaseScreen {
             enemyPool.drawActiveSprites(batch);
         } else if (state == State.GAMEOVER) {
             gameOver.draw(batch);
+            newGameButton.draw(batch);
         }
         batch.end();
     }
@@ -183,6 +186,9 @@ public class GameScreen extends BaseScreen {
         if (state == State.PLAY) {
             spaceShip.touchDown(selectedPos, pointer);
         }
+        if (state == State.GAMEOVER) {
+            newGameButton.touchDown(selectedPos, pointer);
+        }
         return false;
     }
 
@@ -190,6 +196,9 @@ public class GameScreen extends BaseScreen {
     public boolean touchUp(Vector2 selectedPos, int pointer) {
         if (state == State.PLAY) {
             spaceShip.touchUp(selectedPos, pointer);
+        }
+        if (state == State.GAMEOVER) {
+            newGameButton.touchUp(selectedPos, pointer);
         }
         return false;
     }
