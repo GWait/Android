@@ -58,6 +58,7 @@ public abstract class Ship extends Sprite {
     @Override
     public void destroy() {
         super.destroy();
+        this.hp = 0;
         explode();
     }
 

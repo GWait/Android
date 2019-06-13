@@ -156,4 +156,12 @@ public class SpaceShip extends Ship {
                 bullet.getTop() < getBottom()
         );
     }
+
+    public int getHp() {
+        return this.hp;
+    }
+
+    public void heal(int hp) {
+        this.hp = this.hp + hp > 100 ? 100 : this.hp + hp;
+    }
 }
