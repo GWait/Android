@@ -17,6 +17,9 @@ public class EnemySpaceShip extends Ship {
 
     private SpaceShip spaceShip;
 
+    private int killAward;
+
+
     public EnemySpaceShip(BulletPool bulletPool, ExplosionPool explosionPool, Sound bulletSound, Rect worldBounds, SpaceShip spaceShip) {
         this.bulletPool = bulletPool;
         this.explosionPool = explosionPool;
@@ -60,7 +63,7 @@ public class EnemySpaceShip extends Ship {
                     float bulletVY,
                     int damage,
                     float reloadInterval,
-                    float height, int hp) {
+                    float height, int hp, int killAward) {
         this.regions = regions;
         this.speed.set(descentSpeed);
         this.state = State.DESCENT;
@@ -72,6 +75,7 @@ public class EnemySpaceShip extends Ship {
         this.reloadInterval = reloadInterval;
         setHeightProportion(height);
         this.hp = hp;
+        this.killAward = killAward;
     }
 
     public boolean isBulletCollision(Rect bullet) {
@@ -81,5 +85,9 @@ public class EnemySpaceShip extends Ship {
                 bullet.getBottom() > getTop() ||
                 bullet.getTop() < pos.y
                 );
+    }
+
+    public int getKillAward() {
+        return killAward;
     }
 }

@@ -16,6 +16,7 @@ public class EnemyGenerator {
     private static final int ENEMY_SMALL_BULLET_DMG = 1;
     private static final float ENEMY_SMALL_RELOADINT = 3f;
     private static final int ENEMY_SMALL_HP = 1;
+    private static final int ENEMY_SMALL_AWARD = 1;
 
     private static final float ENEMY_MID_HEIGHT = 0.1f;
     private static final float ENEMY_MID_BULLET_HEIGHT = 0.02f;
@@ -23,6 +24,7 @@ public class EnemyGenerator {
     private static final int ENEMY_MID_BULLET_DMG = 5;
     private static final float ENEMY_MID_RELOADINT = 4f;
     private static final int ENEMY_MID_HP = 5;
+    private static final int ENEMY_MID_AWARD = 5;
 
     private static final float ENEMY_BIG_HEIGHT = 0.2f;
     private static final float ENEMY_BIG_BULLET_HEIGHT = 0.04f;
@@ -30,6 +32,7 @@ public class EnemyGenerator {
     private static final int ENEMY_BIG_BULLET_DMG = 10;
     private static final float ENEMY_BIG_RELOADINT = 1f;
     private static final int ENEMY_BIG_HP = 10;
+    private static final int ENEMY_BIG_AWARD = 10;
 
     private Rect worldBounds;
 
@@ -48,6 +51,8 @@ public class EnemyGenerator {
 
     private EnemyPool enemyPool;
 
+    private int level;
+
     public EnemyGenerator(Rect worldBounds, EnemyPool enemyPool, TextureAtlas atlas) {
         this.worldBounds = worldBounds;
         this.enemyPool = enemyPool;
@@ -60,7 +65,8 @@ public class EnemyGenerator {
         this.bulletRegion = atlas.findRegion("bulletEnemy");
     }
 
-    public void generate(float delta) {
+    public void generate(float delta, int score) {
+        level = score / 50 + 1;
         generationTimer += delta;
         if (generationTimer >= generationInterval) {
             generationTimer = 0f;
@@ -70,21 +76,25 @@ public class EnemyGenerator {
             if (type < 0.6f) {
                 enemy.set(enemySmallRegion, enemySmallSpeed,
                         bulletRegion, ENEMY_SMALL_BULLET_HEIGHT,
-                        ENEMY_SMALL_BULLET_SPEEDY, ENEMY_SMALL_BULLET_DMG,
-                        ENEMY_SMALL_RELOADINT, ENEMY_SMALL_HEIGHT, ENEMY_SMALL_HP);
+                        ENEMY_SMALL_BULLET_SPEEDY, ENEMY_SMALL_BULLET_DMG * level,
+                        ENEMY_SMALL_RELOADINT, ENEMY_SMALL_HEIGHT, ENEMY_SMALL_HP, ENEMY_SMALL_AWARD);
             } else if (type < 0.85f) {
                 enemy.set(enemyMidRegion, enemyMidSpeed,
                         bulletRegion, ENEMY_MID_BULLET_HEIGHT,
-                        ENEMY_MID_BULLET_SPEEDY, ENEMY_MID_BULLET_DMG,
-                        ENEMY_MID_RELOADINT, ENEMY_MID_HEIGHT, ENEMY_MID_HP);
+                        ENEMY_MID_BULLET_SPEEDY, ENEMY_MID_BULLET_DMG * level,
+                        ENEMY_MID_RELOADINT, ENEMY_MID_HEIGHT, ENEMY_MID_HP, ENEMY_MID_AWARD);
             } else {
                 enemy.set(enemyBigRegion, enemyBigSpeed,
                         bulletRegion, ENEMY_BIG_BULLET_HEIGHT,
-                        ENEMY_BIG_BULLET_SPEEDY, ENEMY_BIG_BULLET_DMG,
-                        ENEMY_BIG_RELOADINT, ENEMY_BIG_HEIGHT, ENEMY_BIG_HP);
+                        ENEMY_BIG_BULLET_SPEEDY, ENEMY_BIG_BULLET_DMG * level,
+                        ENEMY_BIG_RELOADINT, ENEMY_BIG_HEIGHT, ENEMY_BIG_HP, ENEMY_BIG_AWARD);
             }
             enemy.pos.x = Rnd.nextFloat(worldBounds.getLeft() + enemy.getHalfWidth(), worldBounds.getRight() - enemy.getHalfWidth());
             enemy.setBottom(worldBounds.getTop());
         }
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

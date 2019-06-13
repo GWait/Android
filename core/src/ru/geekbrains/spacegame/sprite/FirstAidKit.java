@@ -1,37 +1,27 @@
 package ru.geekbrains.spacegame.sprite;
-
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import ru.geekbrains.spacegame.base.Sprite;
 import ru.geekbrains.spacegame.math.Rect;
 
-public class Bullet extends Sprite {
-
+public class FirstAidKit extends SpaceItem {
     private Rect worldBounds;
-    private Vector2 speed = new Vector2();
-    private int damage;
-    private Object owner;
+    private Vector2 speed = new Vector2(0f, -0.1f);
+    private int hp;
 
-    public Bullet() {
+    public FirstAidKit() {
         regions = new TextureRegion[1];
     }
 
     public void set(
-            Object owner,
             TextureRegion region,
-            Vector2 pos0,
-            Vector2 v0,
             float height,
             Rect worldBounds,
-            int damage
+            int hp
     ) {
-        this.owner = owner;
         this.regions[0] = region;
-        this.pos.set(pos0);
-        this.speed.set(v0);
         setHeightProportion(height);
         this.worldBounds = worldBounds;
-        this.damage = damage;
+        this.hp = hp;
     }
 
     @Override
@@ -42,11 +32,7 @@ public class Bullet extends Sprite {
         }
     }
 
-    public Object getOwner() {
-        return owner;
-    }
-
-    public int getDamage() {
-        return damage;
+    public int getHp() {
+        return hp;
     }
 }
